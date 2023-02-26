@@ -18,7 +18,9 @@ const Cart = () => {
                         <div class="space-y-6">
                             {/* <!-- Cart Item --> */}
 
-                            {cartItems.map(item => <CartItem />)}
+                            {cartItems.map(item => <CartItem
+                                item={item}
+                            />)}
                             {/* <CartItem /> */}
 
                             {/* <!-- Cart Items Ends --> */}
