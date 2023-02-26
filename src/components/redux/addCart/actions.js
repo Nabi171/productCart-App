@@ -1,4 +1,4 @@
-import { ADDPRODUCT, ADDTOCART } from "./actionTypes";
+import { ADDPRODUCT, ADDTOCART, INCREMENTITEM, DECREMENTITEM } from "./actionTypes";
 
 export const addProduct = (productName, category, imageUrl, price, quantity) => {
     return {
@@ -20,4 +20,19 @@ export const addToCart = (productName, category, imageUrl, price, quantity) => {
             quantity
         }
     };
+}
+
+export const incrementItem = () => {
+    return {
+        type: INCREMENTITEM,
+
+    }
+}
+
+
+export const decrementItem = () => {
+    return {
+        type: DECREMENTITEM,
+
+    }
 }

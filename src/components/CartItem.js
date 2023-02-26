@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { incrementItem, decrementItem } from './redux/addCart/actions';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
     const { productName, category, imageUrl, price, quantity } = item;
-    const [count, setCount] = useState(0);
+    // const dispatch = useDispatch();
+    // const itemCount = useSelector((state) => state.itemCount);
+    // const [count, setCount] = useState(0);
     // inc = 0;
-    const increament = () => {
-        if (count < quantity) {
-            setCount(count + 1);
-        }
-    }
+    // const increament = () => {
+    //     if (itemCount < quantity) {
+    //         dispatch(incrementItem);
+    //     }
+    // }
+    // connect
 
-    const decrement = () => {
+    // const decrement = () => {
 
-        if (count > 0) {
+    //     if (itemCount > 0) {
 
-            setCount(count - 1);
-        }
+    //         dispatch(decrementItem);
+    //     }
 
-    }
+    // }
     // vonst decrement=)=><P></P>
-    const amount = count * price;
+    const amount = itemCount * price;
 
     return (
         <div>
@@ -38,21 +43,21 @@ const CartItem = ({ item }) => {
                     {/* <!-- amount buttons --> */}
                     <div className="flex items-center space-x-4">
                         <button className="lws-incrementQuantity"
-                            onClick={increament}
+                            onClick={(itemCount < quantity) && incrementItem}
                         >
                             <i className="text-lg fa-solid fa-plus"
 
                             ></i>
                         </button>
-                        <span className="lws-cartQuantity">{count}</span>
+                        <span className="lws-cartQuantity">{itemCount}</span>
                         <button className="lws-decrementQuantity"
 
-                            onClick={decrement}>
+                            onClick={(itemCount > 0) && decrementItem}>
                             <i className="text-lg fa-solid fa-minus"></i>
                         </button>
                     </div>
                     {/* <!-- price --> */}
-                    <p className="text-lg font-bold">BDT <span className="lws-calculatedPrice">{(count >= 0) && amount}</span></p>
+                    <p className="text-lg font-bold">BDT <span className="lws-calculatedPrice">{(itemCount >= 0) && amount}</span></p>
                 </div>
                 {/* <!-- delete button --> */}
                 <div className="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
@@ -65,5 +70,15 @@ const CartItem = ({ item }) => {
     );
 };
 
-export default CartItem;
+
+const mapStateToProps = state => {
+    return {
+        itemCount: state.itemCount
+    }
+}
+
+
+// export default CartItem;
 // export default connect(null, { addToCart })(CartItem);
+
+export default connect(mapStateToProps, { incrementItem, decrementItem })(CartItem);

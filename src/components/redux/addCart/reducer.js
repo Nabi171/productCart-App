@@ -1,7 +1,8 @@
-import { ADDPRODUCT, ADDTOCART } from "./actionTypes";
+import { ADDPRODUCT, ADDTOCART, INCREMENTITEM, DECREMENTITEM } from "./actionTypes";
 const initialState = {
     products: [],
-    cartItems: []
+    cartItems: [],
+    itemCount: 0,
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -26,7 +27,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cartItems: [...state.cartItems, action.payload]
             };
+        case INCREMENTITEM:
+            return {
+                ...state,
+                itemCount: state.itemCount + 1
+            }
 
+        case DECREMENTITEM:
+            return {
+                ...state,
+                itemCount: state.itemCount - 1
+            }
 
         default:
             return state;
