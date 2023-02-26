@@ -1,7 +1,14 @@
 import React from 'react';
+import { addToCart } from './redux/addCart/actions';
+import { connect, useDispatch } from 'react-redux';
 
 const Productitem = ({ pd }) => {
+    const dispacth = useDispatch();
     const { productName, category, imageUrl, price, quantity } = pd;
+
+    const handleAddToCart = () => {
+        dispacth(addToCart(productName, category, imageUrl, price, quantity));
+    }
     return (
         <div class="lws-productCard">
             <img class="lws-productImage"
@@ -19,10 +26,13 @@ const Productitem = ({ pd }) => {
                     <p class="productPrice">BDT <span class="lws-price">{price}</span></p>
                     <p class="productQuantity">QTY <span class="lws-quantity">{quantity}</span></p>
                 </div>
-                <button class="lws-btnAddToCart">Add To Cart</button>
+                <button
+                    onClick={handleAddToCart}
+                    class="lws-btnAddToCart">Add To Cart</button>
             </div>
         </div>
     );
 };
 
-export default Productitem;
+// export default Productitem;
+export default connect(null, { addToCart })(Productitem);

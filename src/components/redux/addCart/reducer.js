@@ -1,6 +1,7 @@
-import { ADDPRODUCT } from "./actionTypes";
+import { ADDPRODUCT, ADDTOCART } from "./actionTypes";
 const initialState = {
     products: [],
+    cartItems: []
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -18,6 +19,15 @@ const reducer = (state = initialState, action) => {
                     }
                 ]
             };
+
+        // tp
+        case ADDTOCART:
+            return {
+                ...state,
+                cartItems: [...state.cartItems, action.payload]
+            };
+
+
         default:
             return state;
     }

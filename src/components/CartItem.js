@@ -1,6 +1,7 @@
 import React from 'react';
 
 const CartItem = () => {
+    // const 
     return (
         <div>
             <div className="cartCard">
@@ -40,3 +41,4 @@ const CartItem = () => {
 };
 
 export default CartItem;
+// export default connect(null, { addToCart })(CartItem);

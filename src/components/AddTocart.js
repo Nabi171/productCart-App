@@ -29,10 +29,10 @@ const AddTocart = ({ addProduct }) => {
         const imageUrl = event.target.elements.imageUrl.value;
         const price = parseFloat(event.target.elements.price.value);
         const quantity = parseInt(event.target.elements.quantity.value);
-        const newProduct = addProduct(productName, category, imageUrl, price, quantity);
+        addProduct(productName, category, imageUrl, price, quantity);
 
 
-        console.log(newProduct);
+        // console.log(newProduct);
         // dispatch(addProduct(newProduct));
     };
 

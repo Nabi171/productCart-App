@@ -1,8 +1,14 @@
 import React from 'react';
 import CartItem from './CartItem';
 import Billdetails from './Billdetails';
+import { connect, useSelector } from 'react-redux';
+import { addToCart } from './redux/addCart/actions';
 
 const Cart = () => {
+    const cartItems = useSelector((state) => state.cartItems);
+    console.log(cartItems)
+    // addToCart
+
     return (
         <div>
             <main class="py-16">
@@ -11,8 +17,10 @@ const Cart = () => {
                     <div class="cartListContainer">
                         <div class="space-y-6">
                             {/* <!-- Cart Item --> */}
-                            {/* <Cart></Cart> */}
-                            <CartItem />
+
+                            {cartItems.map(item => <CartItem />)}
+                            {/* <CartItem /> */}
+
                             {/* <!-- Cart Items Ends --> */}
 
                         </div>
@@ -28,4 +36,15 @@ const Cart = () => {
     );
 };
 
+
+
+// const mapStateToProps = state => {
+//     return {
+//         cartItems: state.cartItems
+//     }
+// }
+
+
+// export default connect(mapStateToProps)(Cart);
+// export default connect(null, { addToCart })(Cart);
 export default Cart;
