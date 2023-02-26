@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from './redux/addCart/actions';
 import { connect } from 'react-redux';
 import Productitem from './Productitem';
+import Nodata from './Nodata';
 
 const AddTocart = ({ addProduct }) => {
+
     const products = useSelector((state) => state.products);
     // const dispatch = useDispatch();
     // const [productName, setProductName] = useState('');
@@ -42,10 +44,12 @@ const AddTocart = ({ addProduct }) => {
                     {/* <!-- products container --> */}
                     <div class="productContainer" id="lws-productContainer">
                         {/* <!-- product item --> */}
-                        {products.map(pd =>
+                        {
+                            (products.length == 0) ? <Nodata /> : products.map(pd =>
 
-                            <Productitem pd={pd} ></Productitem>
-                        )}
+                                <Productitem pd={pd} ></Productitem>
+                            )
+                        }
                         {/* <!-- product item ends --> */}
 
                         {/* <!-- product item --> */}
