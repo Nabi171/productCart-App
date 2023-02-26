@@ -1,24 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
+import Cart from './components/Cart';
+import AddTocart from './components/AddTocart';
+import { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from './components/redux/store';
 
 function App() {
+  const [showCartComponent, setshowCartComponent] = useState(true);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setshowCartComponent(!showCartComponent);
+  };
+
+  const ComponentAddtoCart = () => {
+    return <AddTocart />;
+  }
+
+  const ComponentCartItem = () => {
+    return <Cart />;
+  }
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div >
+        {/* <!-- Navbar --> */}
+        {/* <Header /> */}
+        <nav className="bg-[#171C2A] py-4">
+          <div className="navBar">
+            <a href="index.html"
+              onClick={handleClick}
+            >
+              <img src="./images/logo.png" alt="LWS" className="max-w-[140px]" />
+            </a>
+
+            <div className="flex gap-4">
+              <a href="#home" className="navHome" id="lws-home"
+                onClick={handleClick}
+              > Home </a>
+              <a href="cart.html" className="navCart" id="lws-cart"
+                onClick={handleClick}
+              >
+                <i className="text-xl fa-sharp fa-solid fa-bag-shopping"></i>
+                <span id="lws-totalCart">0</span>
+              </a>
+            </div>
+          </div>
+        </nav>
+        {/* <!-- Navbar ends --> */}
+        {showCartComponent ? <ComponentAddtoCart /> : <ComponentCartItem />}
+
+      </div>
+    </Provider>
   );
 }
 
