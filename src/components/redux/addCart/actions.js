@@ -1,4 +1,4 @@
-import { ADDPRODUCT, ADDTOCART, INCREMENTITEM, DECREMENTITEM } from "./actionTypes";
+import { ADDPRODUCT, ADDTOCART, INCREMENTITEM, DECREMENTITEM, ADDTOTATAL, DELETE_PRODUCT } from "./actionTypes";
 
 export const addProduct = (productName, category, imageUrl, price, quantity) => {
     return {
@@ -22,6 +22,16 @@ export const addToCart = (productName, category, imageUrl, price, quantity) => {
     };
 }
 
+export const addTotal = (itemCount, price) => {
+    return {
+        type: ADDTOTATAL,
+        payload: {
+            itemCount,
+            price
+        }
+    };
+}
+
 export const incrementItem = () => {
     return {
         type: INCREMENTITEM,
@@ -36,3 +46,10 @@ export const decrementItem = () => {
 
     }
 }
+
+export const deleteProduct = (productName) => {
+    return {
+        type: DELETE_PRODUCT,
+        payload: productName,
+    };
+};

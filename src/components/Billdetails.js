@@ -1,6 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Billdetails = () => {
+    // const products = useSelector((state) => state.products);
+    const totalamounts = useSelector((state) => state.totalamounts);
+
+    // totalamounts.map(amount=>)
+    console.log(totalamounts);
     return (
         <div>
             <div>
@@ -10,7 +16,14 @@ const Billdetails = () => {
                         {/* <!-- sub total --> */}
                         <div className="flex items-center justify-between">
                             <p>Sub Total</p>
-                            <p>BDT <span className="lws-subtotal">8800</span></p>
+                            <p>BDT <span className="lws-subtotal">
+                                {
+                                    totalamounts.slice(0, 2).map(amount =>
+                                        <span>{amount.itemCount * amount.price}</span>
+                                    )
+                                }
+
+                            </span></p>
                         </div>
                         {/* <!-- Discount --> */}
                         <div className="flex items-center justify-between">

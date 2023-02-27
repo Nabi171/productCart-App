@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { incrementItem, decrementItem } from './redux/addCart/actions';
+import { incrementItem, decrementItem, addTotal, deleteProduct } from './redux/addCart/actions';
 
-const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
+const CartItem = ({ item }) => {
     const { productName, category, imageUrl, price, quantity } = item;
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     // const itemCount = useSelector((state) => state.itemCount);
-    // const [count, setCount] = useState(0);
+    const [itemCount, setCount] = useState(0);
     // inc = 0;
-    // const increament = () => {
-    //     if (itemCount < quantity) {
-    //         dispatch(incrementItem);
-    //     }
-    // }
-    // connect
+    const increament = () => {
+        if (itemCount < quantity) {
+            setCount(itemCount + 1);
+            dispatch(addTotal(itemCount, price));
+        }
+    }
 
-    // const decrement = () => {
 
-    //     if (itemCount > 0) {
+    const decrement = () => {
 
-    //         dispatch(decrementItem);
-    //     }
+        if (itemCount > 0) {
+            setCount(itemCount - 1);
+            dispatch(addTotal(itemCount, price));
+        }
 
-    // }
-    // vonst decrement=)=><P></P>
+    }
+
     const amount = itemCount * price;
-
+    const handletotal = () => {
+        dispatch(addTotal(price));
+    }
     return (
         <div>
             <div className="cartCard">
@@ -43,7 +46,8 @@ const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
                     {/* <!-- amount buttons --> */}
                     <div className="flex items-center space-x-4">
                         <button className="lws-incrementQuantity"
-                            onClick={(itemCount < quantity) && incrementItem}
+                            // onClick={(itemCount < quantity) && incrementItem}
+                            onClick={increament}
                         >
                             <i className="text-lg fa-solid fa-plus"
 
@@ -51,8 +55,9 @@ const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
                         </button>
                         <span className="lws-cartQuantity">{itemCount}</span>
                         <button className="lws-decrementQuantity"
-
-                            onClick={(itemCount > 0) && decrementItem}>
+                            onClick={decrement}
+                        // onClick={(itemCount > 0) && decrementItem}
+                        >
                             <i className="text-lg fa-solid fa-minus"></i>
                         </button>
                     </div>
@@ -61,7 +66,9 @@ const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
                 </div>
                 {/* <!-- delete button --> */}
                 <div className="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
-                    <button className="lws-removeFromCart">
+                    <button className="lws-removeFromCart"
+                        onClick={() => dispatch(deleteProduct(productName))}
+                    >
                         <i className="text-lg text-red-400 fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -71,14 +78,15 @@ const CartItem = ({ item, itemCount, incrementItem, decrementItem }) => {
 };
 
 
-const mapStateToProps = state => {
-    return {
-        itemCount: state.itemCount
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         itemCount: state.itemCount
+//     }
+// }
 
 
 // export default CartItem;
 // export default connect(null, { addToCart })(CartItem);
 
-export default connect(mapStateToProps, { incrementItem, decrementItem })(CartItem);
+// export default connect(mapStateToProps, { incrementItem, decrementItem, addTotal })(CartItem);
+export default connect(null, { addTotal })(CartItem);
